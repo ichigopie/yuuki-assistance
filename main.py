@@ -8,6 +8,7 @@ dotenv.load_dotenv()
 GUILD = discord.Object(os.environ["GUILD_ID"])
 TOKEN = os.environ["BOT_TOKEN"]
 APP_ID = os.environ["APP_ID"]
+COGS = ["discordmodaltest", "sysinfo", "ping"]
 
 
 class Bot(commands.Bot):
@@ -20,26 +21,14 @@ class Bot(commands.Bot):
         )
 
     async def setup_hook(self):
-        # TODO Loop load cogs extentions
-        await self.load_extension(f"cogs.discordmodaltest")
-        await self.load_extension(f"cogs.sysinfo")
+        for i in COGS:
+            print(f"cogs.{i}")
+            await self.load_extension(f"cogs.{i}")
         await self.tree.sync(guild=GUILD)
 
     async def on_ready(self):
         print(f"Bot has logged in as {self.user}")
         print(f"--------------------------")
-
-# TODO set cogs list in environtment
-# initial_extentions = (
-#     "cogs.discordmodaltest"
-#     "cogs.sysinfo"
-# )
-
-# for extention in initial_extentions:
-#     try:
-#         Bot.load_extension(extention)
-#     except Exception as e:
-#         print(e)
 
 
 bot = Bot()
