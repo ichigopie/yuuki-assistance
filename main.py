@@ -8,7 +8,7 @@ dotenv.load_dotenv()
 GUILD = discord.Object(os.environ["GUILD_ID"])
 TOKEN = os.environ["BOT_TOKEN"]
 APP_ID = os.environ["APP_ID"]
-COGS = ["discordmodaltest", "sysinfo", "ping"]
+COGS = ["discordModalTest", "sysInfo", "ping", "customEmbed"]
 
 
 class Bot(commands.Bot):
@@ -22,7 +22,6 @@ class Bot(commands.Bot):
 
     async def setup_hook(self):
         for i in COGS:
-            print(f"cogs.{i}")
             await self.load_extension(f"cogs.{i}")
         await self.tree.sync(guild=GUILD)
 
